@@ -1,3 +1,4 @@
 # Projeto-Integrador-II---1
 
-Repositorio contendo os códigos de exemplo da disciplina 
+Curso de sistemas para internet 
+Repositorio contendo os códigos de exemplo da disciplina - prof. márcio 
