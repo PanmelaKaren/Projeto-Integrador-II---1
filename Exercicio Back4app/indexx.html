@@ -31,23 +31,20 @@
 
     <script>
         document.getElementById('chamadoForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Evita o comportamento padrão de enviar o formulário
+            event.preventDefault(); 
 
-            // Coletar os dados do formulário
             var formData = new FormData(this);
 
-            // Construir objeto de dados a serem enviados
             var chamadoData = {
                 nome: formData.get('nome'),
                 email: formData.get('email'),
                 assunto: formData.get('assunto'),
                 mensagem: formData.get('mensagem'),
                 resposta: formData.get('resposta'),
-                finalizado: formData.get('finalizado') === 'on' // Se marcado, será true, senão false
+                finalizado: formData.get('finalizado') === 'on' 
             };
 
-            // Enviar os dados para o backend (Back4App)
-            fetch('https://parseapi.back4app.com/classes/Mycustomclass', {
+            fetch('https://backend.back4app.com/apps/7090d596-392e-4189-b3bf-42555a1dcf58/browser/Mycustomclass', {
                 method: 'POST',
                 headers: {
                     'X-Parse-Application-Id': 'RI1Za6hv7kRN84jaJT78T3nz2e880YnDLsrobLVZ', // Substitua com sua Application ID do Back4App
@@ -60,7 +57,7 @@
             .then(data => {
                 console.log('Sucesso:', data);
                 alert('Chamado enviado com sucesso!');
-                // Aqui você pode redirecionar o usuário para outra página ou fazer outras ações
+        
             })
             .catch((error) => {
                 console.error('Erro:', error);
