@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Chamado</title>
+</head>
+<body>
+    <h1>Cadastro de Chamado</h1>
+    <form id="chamadoForm">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="email">E-mail:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="assunto">Assunto:</label><br>
+        <input type="text" id="assunto" name="assunto" required><br><br>
+
+        <label for="mensagem">Mensagem:</label><br>
+        <textarea id="mensagem" name="mensagem" rows="4" cols="50" required></textarea><br><br>
+
+        <label for="resposta">Resposta:</label><br>
+        <input type="text" id="resposta" name="resposta"><br><br>
+
+        <label for="finalizado">Finalizado:</label>
+        <input type="checkbox" id="finalizado" name="finalizado"><br><br>
+
+        <button type="submit">Enviar Chamado</button>
+    </form>
+
+    <script>
+        document.getElementById('chamadoForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o comportamento padrão de enviar o formulário
+
+            // Coletar os dados do formulário
+            var formData = new FormData(this);
+
+            // Construir objeto de dados a serem enviados
+            var chamadoData = {
+                nome: formData.get('nome'),
+                email: formData.get('email'),
+                assunto: formData.get('assunto'),
+                mensagem: formData.get('mensagem'),
+                resposta: formData.get('resposta'),
+                finalizado: formData.get('finalizado') === 'on' // Se marcado, será true, senão false
+            };
+
+            // Enviar os dados para o backend (Back4App)
+            fetch('https://parseapi.back4app.com/classes/Mycustomclass', {
+                method: 'POST',
+                headers: {
+                    'X-Parse-Application-Id': 'RI1Za6hv7kRN84jaJT78T3nz2e880YnDLsrobLVZ', // Substitua com sua Application ID do Back4App
+                    'X-Parse-REST-API-Key': 'WsH1BJYEheydl73qLpqwLmvzDhUSnURwWSyaAamj', // Substitua com sua REST API Key do Back4App
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(chamadoData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Sucesso:', data);
+                alert('Chamado enviado com sucesso!');
+                // Aqui você pode redirecionar o usuário para outra página ou fazer outras ações
+            })
+            .catch((error) => {
+                console.error('Erro:', error);
+                alert('Houve um erro ao enviar o chamado. Por favor, tente novamente.');
+            });
+        });
+    </script>
+</body>
+</html>
